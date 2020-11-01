@@ -12,8 +12,8 @@
                      placeholder="What do you need to do today?"
                      aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-info" type="button" @click="createTask()"><i class="fas fa-plus-circle"></i> Add
-                  Task
+                <button class="btn btn-primary" type="button" @click="createTask()"><i class="fas fa-plus-circle"></i> Add
+                  new task
                 </button>
               </div>
             </div>
@@ -41,7 +41,7 @@
               </div>
             </li>
           </ul>
-          <div v-else>No Task Available</div>
+          <div v-else>😀 Hooray all task completed</div>
         </div>
       </div>
       <div class="col col-6">
@@ -62,7 +62,7 @@
               </div>
             </li>
           </ul>
-          <div v-else>No task completed yet</div>
+          <div v-else>😟 All tasks are still pending</div>
         </div>
       </div>
     </div>
