@@ -8,12 +8,7 @@
           <div v-if="loginError" class="alert alert-warning">
             {{ loginError }}
           </div>
-          <div v-if="errors.length" class="alert alert-warning">
-            <b>Please correct the following error(s):</b>
-            <ul>
-              <li v-for="error in errors" :key="error.line">{{ error }}</li>
-            </ul>
-          </div>
+          <ValidationErrors :errors="validationErrorMessages"/>
           <form v-if="showLoginForm" @submit.prevent>
             <h5 class="card-title">User Login</h5>
             <div class="form-group">
@@ -33,7 +28,7 @@
             </div>
           </form>
           <form v-else @submit.prevent>
-            <h5 class="card-title">Registration</h5>
+            <h5 class="card-title">Sign up</h5>
             <div class="form-group">
               <label for="name">Name</label>
               <input v-model.trim="signupForm.name" class="form-control" type="text" placeholder="Your Name" id="name"/>
@@ -64,15 +59,17 @@
 
 import Loading from "@/components/Loading";
 import LoginHeader from "@/components/LoginHeader";
+import ValidationErrors from "@/components/ValidationErrors";
 
 export default {
   components:{
     Loading,
-    LoginHeader
+    LoginHeader,
+    ValidationErrors
   },
   data() {
     return {
-      errors: [],
+      validationErrorMessages: [],
       loginError: '',
       processing:false,
       loginForm: {
@@ -92,21 +89,21 @@ export default {
   methods: {
     toggleForm() {
       this.showLoginForm = !this.showLoginForm
-      this.errors = []
+      this.validationErrorMessages = []
       this.loginError = ''
       this.loginForm = {}
     },
     async login() {
-      this.errors = [];
+      this.validationErrorMessages = [];
       if (!this.loginForm.email) {
-        this.errors.push('Email address required.');
+        this.validationErrorMessages.push('Email address required.');
       }else if (!this.validEmail(this.loginForm.email)) {
-        this.errors.push('Email address not valid.');
+        this.validationErrorMessages.push('Email address not valid.');
       }
       if (!this.loginForm.password) {
-        this.errors.push('Password required.');
+        this.validationErrorMessages.push('Password required.');
       }
-      if (!this.errors.length) {
+      if (!this.validationErrorMessages.length) {
         this.processing = true;
         await this.$store.dispatch('login', {
           email: this.loginForm.email,
@@ -120,25 +117,25 @@ export default {
       }
     },
     async signup() {
-      this.errors = [];
+      this.validationErrorMessages = [];
       if (!this.signupForm.name) {
-        this.errors.push('Name required.');
+        this.validationErrorMessages.push('Name required.');
       } else if (this.signupForm.name.length < 4) {
-        this.errors.push('Name must be atlest 4 characters long.');
+        this.validationErrorMessages.push('Name must be atlest 4 characters long.');
       }
 
       if (!this.signupForm.email) {
-        this.errors.push('Email address required.');
+        this.validationErrorMessages.push('Email address required.');
       }else if (!this.validEmail(this.signupForm.email)) {
-        this.errors.push('Email address not valid.');
+        this.validationErrorMessages.push('Email address not valid.');
       }
 
       if (!this.signupForm.password) {
-        this.errors.push('Password required.');
+        this.validationErrorMessages.push('Password required.');
       }else if(this.signupForm.password.length < 6){
-        this.errors.push('Password must be atleast 6 characters or more.')
+        this.validationErrorMessages.push('Password must be atleast 6 characters or more.')
       }
-      if (!this.errors.length) {
+      if (!this.validationErrorMessages.length) {
         this.processing = true;
         await this.$store.dispatch('signup', {
           email: this.signupForm.email,
