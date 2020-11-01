@@ -5,24 +5,20 @@
       <div class="col col-6">
         <div class="card card-body">
           <h5 class="card-title">Reset Password</h5>
-          <div v-if="!showSuccess">
+          <div>
             <form @submit.prevent>
               <div class="form-group">
                 <label for="email">Enter your email to reset your password</label>
                 <input v-model.trim="email" id="email" type="email" placeholder="user@mail.com" class="form-control"/>
               </div>
               <div class="form-group">
-                <p v-if="errorMsg !== ''" class="error">{{ errorMsg }}</p>
+                <p v-if="showSuccess" class="alert alert-success">Success! Check your email for a reset link.</p>
+                <p v-if="errorMsg !== ''" class="alert alert-warning">{{ errorMsg }}</p>
                 <button @click="resetPassword()" class="btn btn-primary">Reset</button>
               </div>
               <hr>
               <router-link :to="{name:'Login'}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Login</router-link>
             </form>
-          </div>
-          <div v-else>
-            <div class="alert alert-success">Success! Check your email for a reset link.</div>
-            <hr>
-            <router-link :to="{name:'Login'}" class="btn btn-warning"><i class="fas fa-arrow-circle-left"></i> Login</router-link>
           </div>
         </div>
       </div>
@@ -47,7 +43,6 @@ export default {
   methods: {
     async resetPassword() {
       this.errorMsg = ''
-
       try {
         await auth.sendPasswordResetEmail(this.email)
         this.showSuccess = true

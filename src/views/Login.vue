@@ -5,7 +5,7 @@
       <div class="col col-6">
         <Loading v-if="processing"/>
         <div :class="{ 'signup-form': !showLoginForm }" class="card card-body mt-5" v-else>
-          <div v-if="loginError" class="alert alert-dark">
+          <div v-if="loginError" class="alert alert-warning">
             {{ loginError }}
           </div>
           <div v-if="errors.length" class="alert alert-warning">
@@ -112,9 +112,9 @@ export default {
           email: this.loginForm.email,
           password: this.loginForm.password
         }).then(response => {
-          if (response === 'ERROR') {
+          if (response && response.type === 'ERROR') {
             this.processing = false;
-            this.loginError = 'Please check your login credentials.';
+            this.loginError = response.message;
           }
         })
       }
@@ -126,7 +126,7 @@ export default {
       } else if (this.signupForm.name.length < 4) {
         this.errors.push('Name must be atlest 4 characters long.');
       }
-      
+
       if (!this.signupForm.email) {
         this.errors.push('Email address required.');
       }else if (!this.validEmail(this.signupForm.email)) {

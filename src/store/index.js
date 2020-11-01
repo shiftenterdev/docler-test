@@ -45,11 +45,10 @@ const store = new Vuex.Store({
         async login({dispatch}, form) {
             return await fb.auth.signInWithEmailAndPassword(form.email, form.password)
                 .then(response => {
+                    //console.log(response);
                     dispatch('fetchUserProfile', response.user)
-                })
-                .catch(err => {
-                    return 'ERROR'
-                    //console.log(err.message)
+                }).catch(err=>{
+                    return {'type':'ERROR','message':err.message}
                 })
         },
         async signup({dispatch}, form) {
