@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <div class="row mt-5 justify-content-center">
-      <h1 class="app-title text-primary">Dockler Test App</h1>
-    </div>
+    <LoginHeader/>
     <div class="row justify-content-center my-5">
       <div class="col col-6">
         <div class="card card-body">
@@ -33,8 +31,12 @@
 </template>
 <script>
 import {auth} from '@/firebase'
+import LoginHeader from "@/components/LoginHeader";
 
 export default {
+  components:{
+    LoginHeader
+  },
   data() {
     return {
       email: '',
@@ -56,11 +58,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-
-.app-title {
-  font-family: 'Lobster', cursive;
-}
-</style>

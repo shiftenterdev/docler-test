@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <div class="row mt-5 justify-content-center">
-      <h1 class="app-title text-info"><img src="/todolist.png" class="brand-img"> Dockler Test App</h1>
-    </div>
+    <LoginHeader/>
     <div id="login" class="row justify-content-center">
       <div class="col col-6">
         <Loading v-if="processing"/>
@@ -65,10 +63,12 @@
 <script>
 
 import Loading from "@/components/Loading";
+import LoginHeader from "@/components/LoginHeader";
 
 export default {
   components:{
-    Loading
+    Loading,
+    LoginHeader
   },
   data() {
     return {
@@ -98,9 +98,10 @@ export default {
     },
     async login() {
       this.errors = [];
-
       if (!this.loginForm.email) {
-        this.errors.push('Email required.');
+        this.errors.push('Email address required.');
+      }else if (!this.validEmail(this.loginForm.email)) {
+        this.errors.push('Email address not valid.');
       }
       if (!this.loginForm.password) {
         this.errors.push('Password required.');
@@ -120,14 +121,22 @@ export default {
     },
     async signup() {
       this.errors = [];
-      if (!this.signupForm.email) {
-        this.errors.push('Email required.');
-      }
       if (!this.signupForm.name) {
         this.errors.push('Name required.');
+      } else if (this.signupForm.name.length < 4) {
+        this.errors.push('Name must be atlest 4 characters long.');
       }
+      
+      if (!this.signupForm.email) {
+        this.errors.push('Email address required.');
+      }else if (!this.validEmail(this.signupForm.email)) {
+        this.errors.push('Email address not valid.');
+      }
+
       if (!this.signupForm.password) {
         this.errors.push('Password required.');
+      }else if(this.signupForm.password.length < 6){
+        this.errors.push('Password must be atleast 6 characters or more.')
       }
       if (!this.errors.length) {
         this.processing = true;
@@ -139,17 +148,11 @@ export default {
           this.processing = false;
         })
       }
+    },
+    validEmail: function (email) {
+      let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
   }
 }
 </script>
-
-<style lang="css" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-.app-title {
-  font-family: 'Lobster', cursive;
-}
-.brand-img{
-  height: 40px;
-}
-</style>
