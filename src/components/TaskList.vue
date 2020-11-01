@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-around mt-3" v-if="tasks">
+    <div class="row justify-content-around mt-3" v-if="tasks && tasks.length">
       <div class="col col-6">
         <div class="card card-body" v-if="tasks">
           <h5 class="card-title">Todo Task(<span v-text="toDoTasks.length"></span>)</h5>
@@ -41,7 +41,7 @@
               </div>
             </li>
           </ul>
-          <div v-else>😀 Hooray all task completed</div>
+          <div v-else>😀 Hooray all tasks are done</div>
         </div>
       </div>
       <div class="col col-6">
@@ -66,7 +66,10 @@
         </div>
       </div>
     </div>
-    <div v-else><Loading/></div>
+    <div class="alert alert-info mt-3" v-else-if="tasks">
+      No Tasks available. Please create a new task.
+    </div>
+    <div class="mt-3" v-else><Loading/></div>
   </div>
 </template>
 
