@@ -1,8 +1,8 @@
 <template>
   <div id="dashboard" class="container">
     <div class="row justify-content-center">
-      <div class="col col-10 px-4">
-        <h3>Hi, {{userProfile.name}}</h3>
+      <div class="col col-12 px-4">
+        <h3>Hi, <span class="text-uppercase font-weight-bold font-italic">{{userProfile.name}}</span></h3>
       </div>
     </div>
     <TaskList/>
