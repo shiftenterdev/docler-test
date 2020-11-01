@@ -1,6 +1,6 @@
 <template>
   <div class="row mt-5 justify-content-center">
-    <h1 class="app-title text-info"><img src="/todolist.png" class="brand-img"> Dockler Test App</h1>
+    <h1 class="app-title text-info"><img src="/todolist.png" class="brand-img"> Docler App</h1>
   </div>
 </template>
 

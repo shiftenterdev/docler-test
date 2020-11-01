@@ -1,4 +1,4 @@
-# dockler-app
+# docler-app
 
 ## Project setup
 ```

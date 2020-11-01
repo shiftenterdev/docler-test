@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-dark bg-info mb-5">
     <div class="container">
-      <router-link class="navbar-brand app-title" :to="{name:'home'}">Dockler Test App</router-link>
+      <router-link class="navbar-brand app-title" :to="{name:'home'}">Docler App</router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
